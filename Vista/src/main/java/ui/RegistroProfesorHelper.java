@@ -3,12 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package helper;
+package ui;
 
 
 import mx.desarollo.entity.Profesor;
 import mx.desarollo.integration.ServiceFacadeLocator;
-import mx.desarollo.entity.Usuario;
 
 import java.io.Serializable;
 

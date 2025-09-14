@@ -1,7 +1,7 @@
-package helper;
+package ui;
+
 import jakarta.enterprise.context.SessionScoped;
 import jakarta.inject.Named;
-import ui.Profesor;
 
 import java.io.Serializable;
 import java.util.ArrayList;

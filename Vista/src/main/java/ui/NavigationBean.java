@@ -1,4 +1,4 @@
-package helper;
+package ui;
 
 import jakarta.enterprise.context.SessionScoped;
 import jakarta.inject.Named;

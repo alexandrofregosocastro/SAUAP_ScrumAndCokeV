@@ -1,4 +1,4 @@
-package helper;
+package ui;
 public class Profesor {
     private int id;
     private String nombre;

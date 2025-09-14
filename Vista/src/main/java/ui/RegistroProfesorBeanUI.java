@@ -5,17 +5,13 @@
  */
 package ui;
 
-import helper.RegistroProfesorHelper;
 import jakarta.annotation.PostConstruct;
-import jakarta.enterprise.context.SessionScoped;
 import jakarta.faces.application.FacesMessage;
 import jakarta.faces.context.FacesContext;
 import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Named;
 import mx.desarollo.entity.Profesor;
-import mx.desarollo.entity.Usuario;
 
-import java.io.IOException;
 import java.io.Serializable;
 
 @Named("RegistroProfesorUI")

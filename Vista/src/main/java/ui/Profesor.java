@@ -1,3 +1,4 @@
+//Esta clase no sirve fue creada solamenet para pruebas
 package ui;
 public class Profesor {
     private int id;

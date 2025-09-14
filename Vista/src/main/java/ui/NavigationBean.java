@@ -1,3 +1,4 @@
+//el xhtml lo utiliza para saber en que pagina se encuentra y dejar activado el boton de la barra lateral
 package ui;
 
 import jakarta.enterprise.context.SessionScoped;

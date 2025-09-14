@@ -1,3 +1,5 @@
+//Esta le pasa al xhtml de los profesores la lista para imprimirla en la tabla
+//aqui no se deberian de crear los profesores solamente pasarcelos al xhtml
 package ui;
 
 import jakarta.enterprise.context.SessionScoped;
@@ -68,20 +70,6 @@ public class ProfesorBean implements Serializable {
         listaFiltrada = new ArrayList<>(listaProfesores);
     }
 
-    // Método que se ejecuta en cada keyup
-    public void filtrarProfesores() {
-        if (filtro == null || filtro.isBlank()) {
-            listaFiltrada = new ArrayList<>(listaProfesores);
-        } else {
-            String f = filtro.toLowerCase();
-            listaFiltrada = listaProfesores.stream()
-                    .filter(p -> String.valueOf(p.getId()).contains(f) ||
-                            p.getNombre().toLowerCase().contains(f) ||
-                            p.getApellidos().toLowerCase().contains(f) ||
-                            p.getRfc().toLowerCase().contains(f))
-                    .collect(Collectors.toList());
-        }
-    }
 
     private String globalFilter;
 

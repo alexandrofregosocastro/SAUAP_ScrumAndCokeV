@@ -27,7 +27,8 @@ public class Profesor {
     @JoinTable(
             name = "imparte",
             joinColumns = @JoinColumn(name = "id_profesor"),
-            inverseJoinColumns = @JoinColumn (name = "id_uniapr")
+            inverseJoinColumns = @JoinColumn (name = "id_uniapr"),
+            uniqueConstraints = @UniqueConstraint(columnNames = {"id_profesor","id_uniapr"})
     )
     private Set<Unidad_aprendizaje> unidades = new HashSet<>();
 

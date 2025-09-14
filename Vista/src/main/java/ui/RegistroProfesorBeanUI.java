@@ -7,7 +7,6 @@ package ui;
 
 import helper.RegistroProfesorHelper;
 import jakarta.annotation.PostConstruct;
-import jakarta.enterprise.context.SessionScoped;
 import jakarta.faces.application.FacesMessage;
 import jakarta.faces.context.FacesContext;
 import jakarta.faces.view.ViewScoped;
@@ -15,7 +14,7 @@ import jakarta.inject.Named;
 import mx.desarollo.entity.Profesor;
 import java.io.Serializable;
 
-@Named("RegistroProfesorUI")
+@Named("RegistroProfesorUI")//Nombre que usara el XHTML
 @ViewScoped //Especifica que se destruira al momento de completar el formulario
 public class RegistroProfesorBeanUI implements Serializable{
     private RegistroProfesorHelper RPH;
@@ -47,7 +46,7 @@ public class RegistroProfesorBeanUI implements Serializable{
 
     public void RegistrarProfesor(){
         boolean bandera = RPH.registrarProfesor(profesor);
-        if(bandera == true){
+        if(bandera){
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"Registro exitoso",""));
         }
         else{

@@ -20,4 +20,8 @@ public class FacadeProfesor {
         return delegateProfesor.registrarProfesor(profesor);
     }
 
+    public boolean asignarUA(int idProfesor, int idUA){
+        return delegateProfesor.asignarUA(idProfesor, idUA);
+    }
+
 }

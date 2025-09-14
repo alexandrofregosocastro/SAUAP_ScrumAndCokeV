@@ -1,6 +1,7 @@
 package ui;
 
 import helper.RegistroUA_Helper;
+import jakarta.annotation.PostConstruct;
 import jakarta.faces.application.FacesMessage;
 import jakarta.faces.context.FacesContext;
 import jakarta.faces.view.ViewScoped;
@@ -17,6 +18,7 @@ public class RegistroUA_BeanUI implements Serializable {
 
     public RegistroUA_BeanUI() { UA_helper = new RegistroUA_Helper(); }
 
+    @PostConstruct
     public void init () { unidad_aprendizaje = new Unidad_aprendizaje(); }
 
     public void RegistrarUA(){

@@ -25,10 +25,14 @@ public class UA_DAO extends AbstractDAO<Unidad_aprendizaje> {
             System.out.println("Error al guardar Unidad_aprendizaje" + ex.getMessage());
         }
         finally{
-            if(em.isOpen()){
-                em.close();
+            if (t != null && t.isActive()) {
+                t.rollback();
             }
         }
+    }
+
+    public Unidad_aprendizaje buscarID(int idUA) {
+        return em.find(Unidad_aprendizaje.class, idUA);
     }
 
     @Override

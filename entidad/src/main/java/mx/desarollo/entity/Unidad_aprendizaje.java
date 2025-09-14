@@ -2,6 +2,8 @@ package mx.desarollo.entity;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Size;
+
+import java.time.LocalTime;
 import java.util.Set;
 import java.util.HashSet;
 
@@ -9,13 +11,17 @@ import java.util.HashSet;
 @Table(name = "unidad_aprendizaje")
 public class Unidad_aprendizaje {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    int id_uniapr;
+    private int id_uniapr;
     @Column (length = 50)
     @Size(max = 50)
-    String nombre;
-    int horas_clase;
-    int horas_taller;
-    int horas_lab;
+    private String nombre;
+    private int horas_clase;
+    private int horas_taller;
+    private int horas_lab;
+    @Column(name = "hora_inicio",nullable = false)//realmente no es necesarip es solo si el nombre del java no coincide con el de la BD
+    private LocalTime hora_inicio;
+    @Column(name = "hora_fin",nullable = false)
+    private LocalTime hora_fin;
 
     @ManyToMany(mappedBy = "unidades")
 
@@ -25,6 +31,19 @@ public class Unidad_aprendizaje {
         return id_uniapr;
     }
 
+    public LocalTime getHora_inicio() {
+        return hora_inicio;
+    }
+    public void setHora_inicio(LocalTime hora_inicio) {
+        this.hora_inicio = hora_inicio;
+    }
+
+    public LocalTime getHora_fin() {
+        return hora_fin;
+    }
+    public void setHora_fin(LocalTime hora_fin) {
+        this.hora_fin = hora_fin;
+    }
     public void setId_uniapr(int id_uniapr) {
         this.id_uniapr = id_uniapr;
     }

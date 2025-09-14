@@ -7,8 +7,7 @@ import java.io.Serializable;
 public class RegistroUA_Helper implements Serializable {
     public boolean registrarUA(Unidad_aprendizaje ua){
         try{
-            ServiceFacadeLocator.getInstanceFacadeUA().registrarUA(ua);
-            return true;
+            return ServiceFacadeLocator.getInstanceFacadeUA().registrarUA(ua);
         }catch (Exception ex){
             System.out.println("Error" + ex.getMessage());
             return false;

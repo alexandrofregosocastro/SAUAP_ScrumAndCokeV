@@ -4,6 +4,7 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
 import mx.avanti.desarollo.persistence.AbstractDAO;
 import mx.desarollo.entity.Profesor;
+import mx.desarollo.entity.Unidad_aprendizaje;
 
 
 public class ProfesorDAO extends AbstractDAO<Profesor> {
@@ -25,8 +26,8 @@ public class ProfesorDAO extends AbstractDAO<Profesor> {
             transaction.rollback();
             System.out.println("Error al guardar profesor" + ex.getMessage());
         } finally {
-            if(entityManager.isOpen()){
-                entityManager.close();//Todos los EM se tienen que cerrar para prevenir fugas y errores
+            if (transaction != null && transaction.isActive()) {
+                transaction.rollback();
             }
         }
     }
@@ -41,6 +42,23 @@ public class ProfesorDAO extends AbstractDAO<Profesor> {
             System.out.println("Error al buscar profesor" + ex.getMessage());
             return null;
         }
+    }
+
+    public void asignarUA(Profesor profesor, Unidad_aprendizaje ua) {
+        EntityTransaction tx = entityManager.getTransaction();
+        try {
+            tx.begin();
+            profesor.getUnidades().add(ua);
+            entityManager.merge(profesor);
+            tx.commit();
+        } catch (Exception ex) {
+            if (tx.isActive()) tx.rollback();
+            throw ex;
+        }
+    }
+
+    public Profesor buscarID(int idProfesor) {
+        return entityManager.createQuery("SELECT p FROM Profesor p LEFT JOIN FETCH p.unidades WHERE p.id = :id",Profesor.class).setParameter("id", idProfesor).getSingleResult();
     }
 
     @Override

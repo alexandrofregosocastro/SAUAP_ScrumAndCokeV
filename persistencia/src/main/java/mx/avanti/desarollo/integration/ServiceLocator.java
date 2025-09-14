@@ -14,6 +14,12 @@ import mx.avanti.desarollo.persistence.HibernateUtil;
  *
  * @author total
  */
+
+/*
+El service locator es una "fabrica" de DAOs, configura el entity manager que los DAOs necesitan
+para comunicarse con la base de datos, si alguien necesita comunicarse con la BD, llama al servicelocator
+para obtener el dao que necesita
+ */
 public class ServiceLocator {
 
     private static ProfesorDAO profesorDAO;

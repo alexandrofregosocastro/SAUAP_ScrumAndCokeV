@@ -6,6 +6,8 @@ import mx.avanti.desarollo.persistence.AbstractDAO;
 import mx.desarollo.entity.Profesor;
 import mx.desarollo.entity.Unidad_aprendizaje;
 
+import java.util.List;
+
 
 public class ProfesorDAO extends AbstractDAO<Profesor> {
     private final EntityManager entityManager;
@@ -57,8 +59,21 @@ public class ProfesorDAO extends AbstractDAO<Profesor> {
         }
     }
 
+    //En esta funcion se utiliza un fecth para que tambien se traiga las unidades y las filas que estan
+    //relacionadas en la tabla de "imparte" (que es la tabla peunte)
     public Profesor buscarID(int idProfesor) {
         return entityManager.createQuery("SELECT p FROM Profesor p LEFT JOIN FETCH p.unidades WHERE p.id = :id",Profesor.class).setParameter("id", idProfesor).getSingleResult();
+    }
+
+    public List<Profesor> obtenerAsignaciones(){
+        try{
+            //Se utiliza LEFT JOIN para traer a todos los profesores, no solo a los que tienen asignaciones
+            //El DISTINCT se usa para que no se repitan los profesores si tienen mas de una unidad
+            return entityManager.createQuery("SELECT DISTINCT p FROM Profesor p LEFT JOIN FETCH p.unidades", Profesor.class).getResultList();
+        } catch (Exception ex){
+            System.out.println("Error al obtener asignaciones" + ex.getMessage());
+            return null;
+        }
     }
 
     @Override

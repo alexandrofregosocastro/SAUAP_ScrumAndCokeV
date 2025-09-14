@@ -5,6 +5,10 @@ import mx.desarollo.facade.FacadeUA;
 
 public class ServiceFacadeLocator {
 
+    /*
+    El service FacadeLocator es una fabrica de Facades, en vez de crear tu el Facade dentro
+    del BeanHelper, llamas al FACADELOCATOR para que lo haga por ti
+     */
     private static FacadeProfesor facadeProfesor = new FacadeProfesor();
     //private static FacadeUsuario facadeUsuario;
 

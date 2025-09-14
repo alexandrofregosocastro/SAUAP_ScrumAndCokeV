@@ -7,6 +7,7 @@ import mx.desarollo.entity.Profesor;
 import mx.desarollo.entity.Unidad_aprendizaje;
 
 import java.time.LocalTime;
+import java.util.List;
 
 public class DelegateProfesor {
     private final ProfesorDAO profDao;
@@ -57,8 +58,8 @@ public class DelegateProfesor {
             LocalTime horaFin = ua.getHora_fin();
 
             for(Unidad_aprendizaje unidad : profesor.getUnidades()){
-                LocalTime inic = ua.getHora_inicio();
-                LocalTime fin = ua.getHora_fin();
+                LocalTime inic = unidad.getHora_inicio();
+                LocalTime fin = unidad.getHora_fin();
 
                 if(traslapa(horaInicio, horaFin,inic, fin)) {
                     System.out.println("Hay traslape de horarios");
@@ -77,4 +78,8 @@ public class DelegateProfesor {
     private boolean traslapa(LocalTime inic1, LocalTime fin1, LocalTime inic2, LocalTime fin2) {
         return inic1.isBefore(fin2) && fin1.isAfter(inic2);
     } //Funcion para ver si la hora inicio va antes de las horas registradas y si la hora fin va despues
+
+    public List<Profesor> obtenerAsignaciones(){
+        return profDao.obtenerAsignaciones();
+    }
 }

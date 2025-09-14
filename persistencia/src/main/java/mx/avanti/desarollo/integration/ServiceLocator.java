@@ -22,9 +22,9 @@ public class ServiceLocator {
         return HibernateUtil.getEntityManager();
     }
 
-    /**
-     * se crea la instancia para alumno DAO si esta no existe
-     */
+    public static UnidadAprendizajeDAO getInstanceUnidadAprendizajeDAO() {
+        return new UnidadAprendizajeDAO(HibernateUtil.getEntityManager());
+    }
 
     public static ProfesorDAO getInstanceProfesorDAO() {
         return new ProfesorDAO(HibernateUtil.getEntityManager());

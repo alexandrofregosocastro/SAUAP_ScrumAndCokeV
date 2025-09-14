@@ -8,8 +8,6 @@ package helper;
 
 import mx.desarollo.entity.Profesor;
 import mx.desarollo.integration.ServiceFacadeLocator;
-import mx.desarollo.entity.Usuario;
-
 import java.io.Serializable;
 
 public class RegistroProfesorHelper implements Serializable {

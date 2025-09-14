@@ -1,6 +1,7 @@
 package mx.desarollo.integration;
 
 import mx.desarollo.facade.FacadeProfesor;
+import mx.desarollo.facade.FacadeUA;
 
 public class ServiceFacadeLocator {
 
@@ -16,6 +17,16 @@ public class ServiceFacadeLocator {
         }
     }
 
+    public static FacadeUA facadeUA = new FacadeUA();
+
+    public static FacadeUA getInstanceFacadeUA() {
+        if (facadeUA == null) {
+            facadeUA = new FacadeUA();
+            return facadeUA;
+        } else{
+            return facadeUA;
+        }
+    }
     /*
     public static FacadeUsuario getInstanceFacadeUsuario() {
         if (facadeUsuario == null) {

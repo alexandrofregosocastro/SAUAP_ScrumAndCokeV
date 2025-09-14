@@ -30,6 +30,9 @@ public class ServiceLocator {
         return new ProfesorDAO(HibernateUtil.getEntityManager());
     }
 
+    public static UA_DAO getInstanceUA_DAO() {
+        return new UA_DAO(HibernateUtil.getEntityManager());
+    }
 
     
 }

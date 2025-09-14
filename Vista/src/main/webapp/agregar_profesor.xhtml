@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+<h:head>
+    <title>SAUAP</title>
+    <meta charset="UTF-8"/>
+    <style>
+        /* ttodo el documento */
+        body{
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #e3f0eb;
+        }
+        /*barra lateral*/
+        .barra_lateral {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 200px;
+            height: 100%;
+            background-color: #c1ded3;
+        }
+
+        /*Logo verde de SAUAP*/
+        .logo {
+            background-color: #1b7a3a;
+            color: white;
+            padding: 10px 40px;
+            font-weight: bold;
+            font-size: 18px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-family: Georgia, 'Times New Roman', Times, serif;
+            width: 120%;
+            height: 80px;
+            margin-left: -30px;
+            clip-path: polygon(0 0, 100% 0, 90% 100%, 0% 100%);
+            margin-top: 15px;
+        }
+
+        /*Logo verde de SAUAP la imagen*/
+        .logo img{
+            width: 54px;
+            height: 81px;
+        }
+
+        /*Logo verde de SAUAP el texto*/
+        .barra_lateral p{
+            font-size: 30px;
+            letter-spacing: 3px;
+            padding-left: 20px
+        }
+
+        .barra_lateral ul {
+            list-style: none;
+            margin: 20px 0 0 0;
+            padding: 0;
+        }
+
+        /*Cada boton de la barra lateral*/
+        .barra_lateral li{
+            padding: 12px 20px;
+            cursor: pointer;
+            font-size: 15px;
+            display: flex;
+            align-items: center;
+            border-radius: 10px;
+            margin-bottom: 5px;
+            color: #827D7D;
+            text-decoration: none;
+        }
+
+        /*El link de cada boton de la barra lateral*/
+        .barra_lateral li a{
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+            width: 100%;
+        }
+
+        /*La imagen/icono de cada boton de la barra lateral*/
+        .barra_lateral li img{
+            width: 30px;
+            height: 30px;
+        }
+
+        /*Hover de cada boton de la barra lateral*/
+        .barra_lateral li:hover{
+            background-color: #d7ece0;
+            color: #68A88F;
+            transform: scale(1.05);
+            width: 150px;
+            height: 30px;
+            text-decoration: none;
+        }
+
+        /* La propiedad que va a adoptar el elemento de la barra lateral en el que estemos actualmente */
+        .active {
+            color: #68A88F;
+            background-color: #d7ece0;
+            width: 150px;
+            height: 30px;
+            text-decoration: none;
+        }
+
+        /*elimina que se vean como un link los botones*/
+        .barra_lateral li.active a{
+            background-color: #d7ece0;
+            color: #68A88F;
+        }
+
+        .barra_lateral li.active a:visited{
+            color: #68A88F;
+        }
+
+        /*Elimina qie se vean como link los botones ya visitados*/
+        .barra_lateral li a:visited {
+            color: #827D7D;
+        }
+
+        .barra_lateral li a:visited:hover{
+            color: #68A88F;
+        }
+
+        /*Hace que el boton activo no sea afectado por el hover*/
+        .barra_lateral li.active:hover {
+            background-color: #d7ece0;
+            color: #68A88F;
+            transform: none;
+            text-decoration: none;
+        }
+
+        /*Modifica el contenido principal de la derecha*/
+        .contenido_princial{
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding-top: 120px;
+        }
+
+        /*Modifica el fondo blanco*/
+        .tarjeta_blanca {
+            position: relative;
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0px 2px 6px rgba(0,0,0,0.1);
+            width: 400px;
+        }
+
+        .tarjeta_blanca h1{
+            text-align: center;
+        }
+
+        /*modifica cada apartado del formulario*/
+        .formulario {
+            margin-bottom: 18px;
+        }
+
+
+        /*Modifica el texto arriba del rectuangulo blanco del cada elemento del formulario*/
+        .formulario label{
+            display: block;
+            margin-bottom: 6px;
+            font-size: 14px;
+            font-weight: bold;
+        }
+        /*Modifica el recuadro blanco de cada elemento del formulario*/
+        .formulario input{
+            width: 94%;
+            padding: 8px 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-shadow: 2px 2px 0px #ccc;
+        }
+
+        /*Modifica el boton del formulario*/
+        .btn {
+            display: block;
+            width: max-content;
+            margin: 0 auto;
+            background-color: #1b7a3a;
+            color: white;
+            padding: 8px 14px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-size: 14px;
+            cursor: pointer;
+        }
+
+        /*Modifica el boton del formulario cuando estas hover*/
+
+        .btn:hover{
+            background-color: #145c2c;
+        }
+        /* afecta a los botones rojo para cerrar la pestaña */
+        .close-btn {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            font-size: 20px;
+            color: #555;
+            text-decoration: none;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        /* afecta al hacer hover  al boton rojo para cerrar la pestaña */
+        .close-btn:hover {
+            color: #b30000;
+        }
+    </style>
+</h:head>
+<h:body>
+    <!-- Barra lateral -->
+    <div class="barra_lateral">
+
+        <!-- Baner verde de SAUAP -->
+        <div class="logo">
+            <h:graphicImage value="uabc_escudo.png" alt="Logo"/>
+            <p>SAUAP</p>
+        </div>
+        <!-- lista de los botones de la barra lateral -->
+        <ul>
+            <!-- primer boton de la barra lateral -->
+            <li class="#{facesContext.viewRoot.viewId eq '/login.xhtml' ? 'active' : ''}">
+                <h:link outcome ="/login.xhmtl">
+                    <img src="home.png" alt="login"/>
+                    <h:outputText value="Inicio"/>
+                </h:link>
+            </li>
+            <!-- segundo boton de la barra lateral -->
+            <li class="#{faceContext.viewRoot.viewId eq '/profesores.xhtml' ? 'active' : ''}">
+                <h:link outcome="/profesores.xhtml">
+                    <img src="person.png" alt="Profesores"/>
+                    <h:outputText value="Profesores"/>
+                </h:link>
+            </li>
+            <!-- tercer boton de la barra lateral -->
+            <li class="#{facesContext.viewRoot.viewId eq '/clases.xhtml' ? 'active' : ''}">
+                <h:link outcome="/clases.xhtml">
+                    <img src="book.png" alt="Clases"/>
+                    <h:outputText value="Clases"/>
+                </h:link>
+            </li>
+            <!-- cuarto boton de la barra lateral -->
+            <li class="#{facesContext.viewRoot.viewId eq '/asignaciones.xhtml' ? 'active' : ''}">
+                <h:link outcome="/asignaciones.xhtml">
+                    <img src="link.png" alt="Asignaciones"/>
+                    <h:outputText value="Asignaciones"/>
+                </h:link>
+            </li>
+        </ul>
+    </div>
+
+    <!-- Contenido principal a la derecha -->
+    <main class="contenido_princial">
+        <div class="tarjeta_blanca">
+            <!-- Boton para cerrarlo -->
+            <a href="javascript:history.back()" class="close-btn">✖</a>
+            <h1>Registro de un profesor</h1>
+
+            <!-- primer componente del formulario -->
+            <div class="formulario">
+                <label>Nombre</label>
+                <input type="text" placeholder="Nombre"/>
+            </div>
+            <!-- segundo componente del formulario -->
+            <div class="formulario">
+                <label>Apellido Paterno</label>
+                <input type="text" placeholder="Appellido Paterno"/>
+            </div>
+            <!-- tercer componente del formulario -->
+            <div class="formulario">
+                <label>Apellido Materno</label>
+                <input type="text" placeholder="Appellido Materno"/>
+            </div>
+            <!-- tercer componente del formulario -->
+            <div class="formulario">
+                <label>RFC</label>
+                <input type="text" placeholder="RFC"/>
+            </div>
+            <!-- Boton para regresar a donde estabamos y agregar el objeto -->
+            <a href="javascript:history.back()" class="btn">+ Agregar Profesor</a>
+        </div>
+    </main>
+</h:body>
+</html>

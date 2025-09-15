@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+<h:head>
+    <title>Profesores</title>
+    <meta charset="UTF-8"/>
+    <style>
+        /* ttodo el documento */
+        body{
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #e3f0eb;
+        }
+        /*barra lateral*/
+        .barra_lateral {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 200px;
+            height: 100%;
+            background-color: #c1ded3;
+        }
+
+        /*Logo verde dee SAUAP*/
+        .logo {
+            background-color: #1b7a3a;
+            color: white;
+            padding: 10px 40px;
+            font-weight: bold;
+            font-size: 18px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-family: Georgia, 'Times New Roman', Times, serif;
+            width: 120%;
+            height: 80px;
+            margin-left: -30px;
+            clip-path: polygon(0 0, 100% 0, 90% 100%, 0% 100%);
+            margin-top: 15px;
+        }
+
+        /*Logo verde de SAUAP la imagen*/
+        .logo img{
+            width: 54px;
+            height: 81px;
+        }
+
+        /*Logo verde de SAUAP el texto*/
+        .barra_lateral p{
+            font-size: 30px;
+            letter-spacing: 3px;
+            padding-left: 20px
+        }
+
+        .barra_lateral ul {
+            list-style: none;
+            margin: 20px 0 0 0;
+            padding: 0;
+        }
+
+        /*Cada boton de la barra lateral*/
+        .barra_lateral li{
+            padding: 12px 20px;
+            cursor: pointer;
+            font-size: 15px;
+            display: flex;
+            align-items: center;
+            border-radius: 10px;
+            margin-bottom: 5px;
+            color: #827D7D;
+            text-decoration: none;
+        }
+
+        /*El link de cada boton de la barra lateral*/
+        .barra_lateral li a{
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+            width: 100%;
+        }
+
+        /*La imagen/icono de cada boton de la barra lateral*/
+        .barra_lateral li img{
+            width: 30px;
+            height: 30px;
+        }
+
+        /*Hover de cada boton de la barra lateral*/
+        .barra_lateral li:hover{
+            background-color: #d7ece0;
+            color: #68A88F;
+            transform: scale(1.05);
+            width: 150px;
+            height: 30px;
+            text-decoration: none;
+        }
+
+        /* La propiedad que va a adoptar el elemento de la barra lateral en el que estemos actualmente */
+        .active {
+            color: #68A88F;
+            background-color: #d7ece0;
+            width: 150px;
+            height: 30px;
+            text-decoration: none;
+        }
+
+        /*elimina que se vean como un link los botones*/
+        .barra_lateral li.active a{
+            background-color: #d7ece0;
+            color: #68A88F;
+        }
+
+        /*Elimina qie se vean como link los botones ya visitados*/
+        .barra_lateral li a:visited {
+            color: #827D7D;
+        }
+
+        .barra_lateral li a:visited:hover{
+            color: #68A88F;
+            background-color: #d7ece0;
+        }
+
+        /*Hace que el boton activo no sea afectado por el hover*/
+        .barra_lateral li.active:hover {
+            background-color: #d7ece0;
+            color: #68A88F;
+            transform: none;
+            text-decoration: none;
+        }
+
+        /* ====== Layout del contenido (a la derecha del sidebar) ====== */
+        .content {
+            margin-left: 220px;         /* deja espacio para tu sidebar fijo */
+            padding: 24px;
+        }
+
+        /* Tarjeta blanca del mockup */
+        .card {
+            background: #fff;
+            border-radius: 12px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+            padding: 20px 20px 8px 20px;
+            max-width: 1050px;
+            margin: 0 auto;
+        }
+
+        /* afecta a los botones debajo de las tarjetas blancas */
+        .btn {
+            display: inline-block;
+            background-color: #1b7a3a;
+            color: white;
+            padding: 8px 14px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-size: 14px;
+            cursor: pointer;
+        }
+        /* afecta a los botones debajo de las tarjetas blancas */
+        .btn:hover {
+            background-color: #145c2c;
+        }
+        
+
+        .content {
+            padding-top: 150px;
+            width: 1200px;
+            height: 300px;
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+            margin-bottom: 12px;
+        }
+
+        .card-title {
+            margin: 0;
+            font-size: 32px;
+            font-weight: 700;
+        }
+
+        .search-container {
+            margin-bottom: 10px;
+        }
+
+        /* ====== “Skin” minimalista para la p:dataTable ======
+           (aplicado SOLO a esta tabla via styleClass="custom-table") */
+        .custom-table .ui-datatable,
+        .custom-table .ui-widget-content,
+        .custom-table .ui-widget-header {
+            background: #fff ;
+            border: none ;
+            box-shadow: none ;
+        }
+
+        /* Header simple en negrita + línea gris */
+        .custom-table thead th,
+        .custom-table .ui-datatable-scrollable-header-box table thead th {
+            background: #fff ;
+            color: #000 ;
+            font-weight: 700 ;
+            border: none;
+            border-bottom: 1px solid #e5e7eb ;  /* gris */
+            padding: 10px 12px ;
+            text-align: left;
+        }
+
+        /* Celdas cuerpo con separación gris */
+        .custom-table tbody td,
+        .custom-table .ui-datatable-scrollable-body table tbody td {
+            border: none ;
+            border-bottom: 1px solid #eeeeee ;  /* gris claro */
+            color: #333;
+            padding: 12px ;
+        }
+
+        /* Quitar rayado/colores del tema */
+        .custom-table .ui-datatable-data > tr,
+        .custom-table .ui-datatable-scrollable-body table tbody tr {
+            background: #fff ;
+        }
+
+        .custom-table .ui-datatable-data > tr:hover,
+        .custom-table .ui-datatable-scrollable-body table tbody tr:hover {
+            background: #f9f9f9  ; /* hover sutil */
+        }
+
+        /* Ocultar cualquier input de filtro por columna (pero mantener filterBy activo) */
+        .custom-table .ui-column-filter { display: none ; }
+
+        /* Sin íconos de ordenar si no los quieres */
+        .custom-table .ui-sortable-column-icon { display: none ; }
+
+        /* Scroll SOLO vertical */
+        .custom-table .ui-datatable-scrollable-body {
+            overflow-y: auto ;
+            overflow-x: hidden ;
+        }
+
+        /* Input del buscador arriba (estilo similar al mockup) */
+        .search-input {
+            width: 260px;
+            padding: 8px 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-shadow: 2px 2px 0 #d9d9d9;
+        }
+
+        /* Elimina únicamente el encabezado duplicado que aparece dentro del cuerpo */
+        .ui-datatable-scrollable-theadclone {
+            display: none !important;
+        }
+
+        /* Quita inputs de filtro en las cabeceras */
+        .ui-datatable .ui-column-filter,
+        .ui-datatable-scrollable-theadclone {
+            display: none !important;
+            visibility: hidden !important;
+            height: 0 !important;
+            overflow: hidden !important;
+        }
+
+        /* Quita los filtros automáticos de las cabeceras */
+        .ui-datatable .ui-column-filter,
+        .ui-datatable thead tr.ui-filter-row {
+            display: none !important;
+            visibility: hidden !important;
+            height: 0 !important;
+            overflow: hidden !important;
+        }
+
+        /* Cambiar borde y sombra al enfocar */
+        .ui-inputfield.ui-state-focus,
+        .ui-inputfield.ui-state-focus:focus {
+            box-shadow: 0 0 5px #007bff !important; /* azul */
+            border: 1px solid #007bff !important;
+        }
+
+        /* Cambiar borde y sombra cuando tiene valor */
+        .ui-inputfield.ui-state-highlight {
+            box-shadow: 0 0 5px #007bff !important;
+            border: 1px solid #007bff !important;
+        }
+
+
+
+    </style>
+</h:head>
+
+<h:body>
+    <!-- Barra lateral -->
+    <div class="barra_lateral">
+
+        <!-- Baner verde de SAUAP -->
+        <div class="logo">
+            <h:graphicImage value="uabc_escudo.png" alt="Logo"/>
+            <p>SAUAP</p>
+        </div>
+        <!-- lista de los botones de la barra lateral -->
+        <ul>
+            <!-- primer boton de la barra lateral -->
+            <li class="#{facesContext.viewRoot.viewId eq '/login.xhtml' ? 'active' : ''}">
+                <h:link outcome="/login.xhtml">
+                    <img src="home.png" alt="login"/>
+                    <h:outputText value="Inicio"/>
+                </h:link>
+            </li>
+            <!-- segundo boton de la barra lateral -->
+            <li class="#{facesContext.viewRoot.viewId eq '/profesores.xhtml' ? 'active' : ''}">
+                <h:link outcome="profesores">
+                    <img src="person.png" alt="Profesores"/>
+                    <h:outputText value="Profesores"/>
+                </h:link>
+            </li>
+            <!-- tercer boton de la barra lateral -->
+            <li class="#{facesContext.viewRoot.viewId eq '/clases.xhtml' ? 'active' : ''}">
+                <h:link outcome="/clases.xhtml">
+                    <img src="book.png" alt="Clases"/>
+                    <h:outputText value="Unidades de aprendizaje"/>
+                </h:link>
+            </li>
+            <!-- cuarto boton de la barra lateral -->
+            <li class="#{facesContext.viewRoot.viewId eq '/asignaciones.xhtml' ? 'active' : ''}">
+                <h:link outcome="/asignaciones.xhtml">
+                    <img src="link.png" alt="Asignaciones"/>
+                    <h:outputText value="Asignaciones"/>
+                </h:link>
+            </li>
+        </ul>
+    </div>
+
+
+    <div class="content">
+        <div class="card">
+            <div class="card-header">
+                <h1 class="card-title">Profesores</h1>
+                <h:link outcome="/agregar_profesor.xhtml" styleClass="btn" value="+ Agregar un Profesor"/>
+            </div>
+
+            <!-- Buscador global (NO está enlazado al bean) -->
+            <div class="search-container">
+                <p:inputText id="globalFilter"
+                             placeholder="Buscar"
+                             styleClass="search-input"
+                             onkeyup="PF('profesoresTable').filter()"/>
+            </div>
+
+            <!-- Tabla -->
+            <p:dataTable id="tablaProfesores"
+                         value="#{profesorBean.listaFiltrada}"
+                         var="prof"
+                         scrollable="true"
+                         scrollHeight="400"
+                         styleClass="custom-table"
+                         paginator="false">
+
+                <!-- Columnas SIN filtros -->
+                <p:column headerText="ID">
+                    <h:outputText value="#{prof.id}" />
+                </p:column>
+
+                <p:column headerText="Nombre">
+                    <h:outputText value="#{prof.nombre}" />
+                </p:column>
+
+                <p:column headerText="Apellidos">
+                    <h:outputText value="#{prof.apellidos}" />
+                </p:column>
+
+                <p:column headerText="RFC">
+                    <h:outputText value="#{prof.rfc}" />
+                </p:column>
+            </p:dataTable>
+        </div>
+    </div>
+
+</h:body>
+</html>

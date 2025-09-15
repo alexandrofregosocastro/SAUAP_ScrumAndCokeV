@@ -22,8 +22,8 @@ public class NavigationBean implements Serializable {
 
     // Métodos para navegar
     public String goInicio() {
-        currentPage = "login";
-        return "login.xhtml?faces-redirect=true";
+        currentPage = "inicio";
+        return "inicio.xhtml?faces-redirect=true";
     }
 
     public String goProfesores() {

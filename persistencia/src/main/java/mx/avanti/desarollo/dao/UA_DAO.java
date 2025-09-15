@@ -32,8 +32,29 @@ public class UA_DAO extends AbstractDAO<Unidad_aprendizaje> {
     }
 
     public Unidad_aprendizaje buscarID(int idUA) {
-        return em.find(Unidad_aprendizaje.class, idUA);
+        try{
+            return em.createQuery("SELECT ua FROM Unidad_aprendizaje ua LEFT JOIN FETCH ua.profesores WHERE ua.id_uniapr = :id", Unidad_aprendizaje.class).setParameter("id",idUA).getSingleResult();
+        } catch (Exception ex){
+            System.out.println("Error al buscar UA" + ex.getMessage());
+            return null;
+        }
     }
+
+    public boolean modificarUA(Unidad_aprendizaje ua) {
+        EntityTransaction tx = em.getTransaction();
+        try {
+            tx.begin();
+            em.merge(ua);
+            tx.commit();
+            return true;
+        } catch (Exception ex) {
+            if (tx.isActive()) tx.rollback();
+            System.out.println("Error al modificar UA: " + ex.getMessage());
+            return false;
+        }
+    }
+
+
 
     @Override
     public EntityManager getEntityManager() {

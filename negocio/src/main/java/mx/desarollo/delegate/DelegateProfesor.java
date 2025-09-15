@@ -75,10 +75,13 @@ public class DelegateProfesor {
             return false;
         }
     }
-    private boolean traslapa(LocalTime inic1, LocalTime fin1, LocalTime inic2, LocalTime fin2) {
-        return inic1.isBefore(fin2) && fin1.isAfter(inic2);
-    } //Funcion para ver si la hora inicio va antes de las horas registradas y si la hora fin va despues
-
+    public boolean traslapa(LocalTime inic1, LocalTime fin1, LocalTime inic2, LocalTime fin2){
+        if(inic1.equals(inic2)){ //Se mira si la hora inicio es igual en las dos
+            return true;
+        }
+        return inic1.isBefore(fin2) && inic2.isBefore(fin1);
+        //Si la hora inicio es antes que la hora fin esta bien, siempre y cuando la hora fin no sea antes que la hora inicio
+    }
     public List<Profesor> obtenerAsignaciones(){
         return profDao.obtenerAsignaciones();
     }

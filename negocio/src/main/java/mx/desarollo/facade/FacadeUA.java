@@ -13,4 +13,8 @@ public class FacadeUA {
     public boolean registrarUA(Unidad_aprendizaje ua){
         return delegateUA.registrarUA(ua);
     }
+
+    public boolean modificarUA(Unidad_aprendizaje ua){
+        return delegateUA.modificarUA(ua);
+    }
 }

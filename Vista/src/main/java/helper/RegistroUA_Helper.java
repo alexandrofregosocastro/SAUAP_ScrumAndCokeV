@@ -1,5 +1,4 @@
 package helper;
-import mx.desarollo.entity.Profesor;
 import mx.desarollo.entity.Unidad_aprendizaje;
 import mx.desarollo.integration.ServiceFacadeLocator;
 import java.io.Serializable;

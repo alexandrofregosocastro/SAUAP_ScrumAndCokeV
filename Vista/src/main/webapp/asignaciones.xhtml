@@ -385,7 +385,7 @@
 
             <!-- Tabla -->
             <p:dataTable id="tablaAsignaciones"
-                         value="#{asignacionBean.listaProfesores}"
+                         value="#{ConsultaGeneralUI.lista_profesores}"
                          var="prof"
                          scrollable="true"
                          scrollHeight="400"
@@ -403,18 +403,18 @@
 
                 <!-- Columna que lista las clases del profesor -->
                 <p:column headerText="" style="width: 600px;">
-                    <p:dataTable value="#{prof.clases}" var="clase" styleClass="subtabla">
-                        <p:column headerText="Clases">
-                            <h:outputText value="#{clase.claseAsignada}" />
+                    <p:dataTable value="#{prof.unidades}" var="unidad" styleClass="subtabla">
+                        <p:column headerText="Nombre">
+                            <h:outputText value="#{unidad.nombre}" />
                         </p:column>
                         <p:column headerText="Hr de Clase" styleClass="tablita">
-                            <h:outputText value="#{clase.hrClase}" />
+                            <h:outputText value="#{unidad.horas_clase}" />
                         </p:column>
                         <p:column headerText="Hr de Taller" styleClass="tablita">
-                            <h:outputText value="#{clase.hrTaller}" />
+                            <h:outputText value="#{unidad.horas_taller}" />
                         </p:column>
                         <p:column headerText="Hr de Laboratorio" styleClass="tablita">
-                            <h:outputText value="#{clase.hrLaboratorio}" />
+                            <h:outputText value="#{unidad.horas_lab}" />
                         </p:column>
                     </p:dataTable>
                 </p:column>

@@ -353,7 +353,7 @@
 
             <!-- Tabla -->
             <p:dataTable id="tablaProfesores"
-                         value="#{profesorBean.listaFiltrada}"
+                         value="#{ConsultaGeneralUI.lista_profesores}"
                          var="prof"
                          scrollable="true"
                          scrollHeight="400"
@@ -370,11 +370,11 @@
                 </p:column>
 
                 <p:column headerText="Apellidos">
-                    <h:outputText value="#{prof.apellidos}" />
+                    <h:outputText value="#{prof.apellido_paterno}" />
                 </p:column>
 
                 <p:column headerText="RFC">
-                    <h:outputText value="#{prof.rfc}" />
+                    <h:outputText value="#{prof.RFC}" />
                 </p:column>
             </p:dataTable>
         </div>

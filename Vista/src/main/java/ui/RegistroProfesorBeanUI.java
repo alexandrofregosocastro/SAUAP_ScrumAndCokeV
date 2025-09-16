@@ -29,21 +29,6 @@ public class RegistroProfesorBeanUI implements Serializable{
         profesor = new Profesor();
     }
 
-    /*
-     public void login() throws IOException{
-        String appURL = "/index.xhtml";
-        Usuario us= new Usuario();
-        us = loginHelper.Login(usuario.getNombre_usuario(), usuario.getPassword());
-          if(us != null && us.getNombre_usuario()!=null){
-            usuario=us;
-            FacesContext.getCurrentInstance().getExternalContext().redirect(FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath() + appURL);
-        }else{
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Usuario o contraseña incorrecta:", "Intente de nuevo"));
-        }
-    }
-
-     */
-
     public void RegistrarProfesor(){
         boolean bandera = RPH.registrarProfesor(profesor);
         if(bandera){

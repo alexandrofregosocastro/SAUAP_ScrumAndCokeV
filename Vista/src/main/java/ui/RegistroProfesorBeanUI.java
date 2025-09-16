@@ -23,7 +23,7 @@ public class RegistroProfesorBeanUI implements Serializable{
     public RegistroProfesorBeanUI() {
         RPH = new RegistroProfesorHelper();
     }
-
+    //
     @PostConstruct
     public void init(){
         profesor = new Profesor();

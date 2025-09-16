@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+<h:head>
+    <title>Profesores</title>
+    <meta charset="UTF-8"/>
+    <style>
+        /* ttodo el documento */
+        body{
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #e3f0eb;
+        }
+        /*barra lateral*/
+        .barra_lateral {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 200px;
+            height: 100%;
+            background-color: #c1ded3;
+        }
+
+        /*Logo verde de SAUAP*/
+        .logo {
+            background-color: #1b7a3a;
+            color: white;
+            padding: 10px 40px;
+            font-weight: bold;
+            font-size: 18px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-family: Georgia, 'Times New Roman', Times, serif;
+            width: 120%;
+            height: 80px;
+            margin-left: -30px;
+            clip-path: polygon(0 0, 100% 0, 90% 100%, 0% 100%);
+            margin-top: 15px;
+        }
+
+        /*Logo verde de SAUAP la imagen*/
+        .logo img{
+            width: 54px;
+            height: 81px;
+        }
+
+        /*Logo verde de SAUAP el texto*/
+        .barra_lateral p{
+            font-size: 30px;
+            letter-spacing: 3px;
+            padding-left: 20px
+        }
+
+        .barra_lateral ul {
+            list-style: none;
+            margin: 20px 0 0 0;
+            padding: 0;
+        }
+
+        /*Cada boton de la barra lateral*/
+        .barra_lateral li{
+            padding: 12px 20px;
+            cursor: pointer;
+            font-size: 15px;
+            display: flex;
+            align-items: center;
+            border-radius: 10px;
+            margin-bottom: 5px;
+            color: #827D7D;
+            text-decoration: none;
+        }
+
+        /*El link de cada boton de la barra lateral*/
+        .barra_lateral li a{
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+            width: 100%;
+        }
+
+        /*La imagen/icono de cada boton de la barra lateral*/
+        .barra_lateral li img{
+            width: 30px;
+            height: 30px;
+        }
+
+        /*Hover de cada boton de la barra lateral*/
+        .barra_lateral li:hover{
+            background-color: #d7ece0;
+            color: #68A88F;
+            transform: scale(1.05);
+            width: 150px;
+            height: 30px;
+            text-decoration: none;
+        }
+
+        /* Laa propiedad que va a adoptar el elemento de la barra lateral en el que estemos actualmente */
+        .active {
+            color: #68A88F;
+            background-color: #d7ece0;
+            width: 150px;
+            height: 30px;
+            text-decoration: none;
+        }
+
+        /*elimina que se vean como un link los botones*/
+        .barra_lateral li.active a{
+            background-color: #d7ece0;
+            color: #68A88F;
+        }
+
+        /*Elimina qie se vean como link los botones ya visitados*/
+        .barra_lateral li a:visited {
+            color: #827D7D;
+        }
+
+        .barra_lateral li a:visited:hover{
+            color: #68A88F;
+            background-color: #d7ece0;
+        }
+
+        /*Hace que el boton activo no sea afectado por el hover*/
+        .barra_lateral li.active:hover {
+            background-color: #d7ece0;
+            color: #68A88F;
+            transform: none;
+            text-decoration: none;
+        }
+
+        /* Contenido principal de la derecha */
+        .contenido-principal {
+            margin-left: 220px;
+            padding: 24px;
+            padding-top: 150px;
+            width: 1200px;
+            height: 300px;
+        }
+
+        /* Contenido principal de la derecha */
+        .tarjeta-blanca {
+            background: #fff;
+            border-radius: 12px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+            padding: 20px 20px 8px 20px;
+            max-width: 1050px;
+            margin: 0 auto;
+        }
+
+
+        /* Modifica el boton de agregar una asignacion */
+        .btn {
+            display: inline-block;
+            background-color: #1b7a3a;
+            color: white;
+            padding: 8px 14px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-size: 14px;
+            cursor: pointer;
+        }
+
+        /* Modifica el boton de agregar una asignacion */
+        .btn:hover {
+            background-color: #145c2c;
+        }
+
+
+        .tarjeta-blanca-encabezado {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+            margin-bottom: 12px;
+        }
+
+
+        .tarjeta-blanca-titulo {
+            margin: 0;
+            font-size: 32px;
+            font-weight: 700;
+        }
+
+
+        .contenedor-busqueda {
+            margin-bottom: 10px;
+        }
+
+        /* Tabla principal con los profesores */
+        .custom-table .ui-datatable,
+        .custom-table .ui-widget-content,
+        .custom-table .ui-widget-header {
+            background: #fff;
+            border: none;
+            box-shadow: none;
+        }
+
+        /* Tabla principal con los profesores */
+        .custom-table thead th,
+        .custom-table .ui-datatable-scrollable-header-box table thead th {
+            background: #fff;
+            color: #000;
+            font-weight: 700;
+            border: none;
+            border-bottom: 1px solid #e5e7eb;
+            padding: 10px 12px;
+            text-align: left;
+        }
+
+        /* esto modifica la tabla en su version con barra navegadora*/
+        .custom-table tbody td,
+        .custom-table .ui-datatable-scrollable-body table tbody td {
+            border: none;
+            border-bottom: 1px solid #eeeeee;
+            color: #333;
+            padding: 12px;
+        }
+
+
+        /*Modifica todas las filas de la tabla principal*/
+        .custom-table .ui-datatable-data > tr,
+        .custom-table .ui-datatable-scrollable-body table tbody tr {
+            background: #fff;
+        }
+
+        /*Modifica todas las filas de la tabla principal cuando le hacemos hover*/
+        .custom-table .ui-datatable-data > tr:hover,
+        .custom-table .ui-datatable-scrollable-body table tbody tr:hover {
+            background: #f9f9f9;
+        }
+
+        /*Elimina el filtro que pudiera aparecer arriba de la tabla */
+        .custom-table .ui-column-filter {
+            display: none;
+        }
+
+        /*Elimina el icono de las flechas que aparecen al marcar una columna como ordenada */
+        .custom-table .ui-sortable-column-icon {
+            display: none;
+        }
+
+        /*Aparece la barra para darl epara abajo a la tabla y elimina la barra horizontal*/
+        .custom-table .ui-datatable-scrollable-body {
+            overflow-y: auto;
+            overflow-x: hidden;
+        }
+
+        /*Modifica el rectangulo de busqueda*/
+        .search-input {
+            width: 260px;
+            padding: 8px 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-shadow: 2px 2px 0 #d9d9d9;
+        }
+
+        /*Elimina la duplicacion de la cabezera*/
+        .ui-datatable-scrollable-theadclone {
+            display: none !important;
+        }
+
+        /*Agrega el brillo azul a la caja de busqueda*/
+        .ui-inputfield.ui-state-focus,
+        .ui-inputfield.ui-state-focus:focus {
+            box-shadow: 0 0 5px #007bff !important;
+            border: 1px solid #007bff !important;
+        }
+
+        /*Agrega el brillo azul a la caja de busqueda*/
+        .ui-inputfield.ui-state-highlight {
+            box-shadow: 0 0 5px #007bff !important;
+            border: 1px solid #007bff !important;
+        }
+
+        /* Modifica la tabla de clases dentro de la tabla */
+        .subtabla .ui-datatable,
+        .subtabla .ui-widget-content,
+        .subtabla .ui-widget-header {
+            border: none !important;
+            box-shadow: none !important;
+            background: #fff !important;
+        }
+
+        .subtabla thead th {
+            background: #fff !important;
+            color: #000 !important;
+            font-weight: 700;
+            border: none !important;
+            border-bottom: 1px solid #e5e7eb;
+            padding: 10px 12px;
+            text-align: center;
+        }
+
+        .subtabla tbody td {
+            border: none;
+            border-bottom: 1px solid #eeeeee;
+            color: #333;
+            padding: 12px;
+            font-size: 13px;
+            text-align: center;
+        }
+
+        .subtabla .ui-datatable-data > tr:hover {
+            background: #f9f9f9 !important;
+        }
+
+        /*Modifica encabezado de la subatabla*/
+        .subtabla th.tablita {
+            text-align: center;
+            background-color: #f5f5f5;
+            font-weight: 700;
+            color: #000;
+            font-size: 15px;
+        }
+
+
+
+
+
+    </style>
+</h:head>
+
+<h:body>
+    <!-- Barra lateral -->
+    <div class="barra_lateral">
+
+        <!-- Baner verde de SAUAP -->
+        <div class="logo">
+            <h:graphicImage value="uabc_escudo.png" alt="Logo"/>
+            <p>SAUAP</p>
+        </div>
+        <!-- lista de los botones de la barra lateral -->
+        <ul>
+            <!-- primer boton de la barra lateral -->
+            <li class="#{facesContext.viewRoot.viewId eq '/inicio.xhtml' ? 'active' : ''}">
+                <h:link outcome="/inicio.xhtml">
+                    <img src="resources-20250903T164359Z-1-001/resources/home.png" alt="inicio"/>
+                    <h:outputText value="Inicio"/>
+                </h:link>
+            </li>
+            <!-- segundo boton de la barra lateral -->
+            <li class="#{facesContext.viewRoot.viewId eq '/profesores.xhtml' ? 'active' : ''}">
+                <h:link outcome="profesores">
+                    <img src="resources-20250903T164359Z-1-001/resources/person.png" alt="Profesores"/>
+                    <h:outputText value="Profesores"/>
+                </h:link>
+            </li>
+            <!-- tercer boton de la barra lateral -->
+            <li class="#{facesContext.viewRoot.viewId eq '/clases.xhtml' ? 'active' : ''}">
+                <h:link outcome="/clases.xhtml">
+                    <img src="resources-20250903T164359Z-1-001/resources/book.png" alt="Clases"/>
+                    <h:outputText value="Clases"/>
+                </h:link>
+            </li>
+            <!-- cuarto boton de la barra lateral -->
+            <li class="#{facesContext.viewRoot.viewId eq '/asignaciones.xhtml' ? 'active' : ''}">
+                <h:link outcome="/asignaciones.xhtml">
+                    <img src="resources-20250903T164359Z-1-001/resources/link.png" alt="Asignaciones"/>
+                    <h:outputText value="Asignaciones"/>
+                </h:link>
+            </li>
+        </ul>
+    </div>
+
+    <!-- Contenido principal de la derecha -->
+    <div class="contenido-principal">
+        <div class="tarjeta-blanca">
+            <div class="tarjeta-blanca-encabezado">
+                <h1 class="tarjeta-blanca-titulo">Asignaciones</h1>
+                <h:link outcome="/agregar_asignacion.xhtml" styleClass="btn" value="+ Agregar una Asignacion"/>
+            </div>
+
+            <!-- Buscador global (NO está enlazado al bean) -->
+            <div class="contenedor-busqueda">
+                <p:inputText id="globalFilter"
+                             placeholder="Buscar"
+                             styleClass="search-input"
+                             onkeyup="PF('profesoresTable').filter()"/>
+            </div>
+
+            <!-- Tabla -->
+            <p:dataTable id="tablaAsignaciones"
+                         value="#{asignacionBean.listaProfesores}"
+                         var="prof"
+                         scrollable="true"
+                         scrollHeight="400"
+                         styleClass="custom-table"
+                         paginator="false">
+
+                <!-- Columnas principales -->
+                <p:column headerText="ID" >
+                    <h:outputText value="#{prof.id}" />
+                </p:column>
+
+                <p:column headerText="Nombre">
+                    <h:outputText value="#{prof.nombre}" />
+                </p:column>
+
+                <!-- Columna que lista las clases del profesor -->
+                <p:column headerText="" style="width: 600px;">
+                    <p:dataTable value="#{prof.clases}" var="clase" styleClass="subtabla">
+                        <p:column headerText="Clases">
+                            <h:outputText value="#{clase.claseAsignada}" />
+                        </p:column>
+                        <p:column headerText="Hr de Clase" styleClass="tablita">
+                            <h:outputText value="#{clase.hrClase}" />
+                        </p:column>
+                        <p:column headerText="Hr de Taller" styleClass="tablita">
+                            <h:outputText value="#{clase.hrTaller}" />
+                        </p:column>
+                        <p:column headerText="Hr de Laboratorio" styleClass="tablita">
+                            <h:outputText value="#{clase.hrLaboratorio}" />
+                        </p:column>
+                    </p:dataTable>
+                </p:column>
+
+            </p:dataTable>
+
+
+
+
+
+
+        </div>
+    </div>
+
+</h:body>
+</html>

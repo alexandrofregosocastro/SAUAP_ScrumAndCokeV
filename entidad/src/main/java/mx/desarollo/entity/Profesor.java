@@ -9,6 +9,7 @@ import java.util.HashSet;
 @Table (name = "profesor")
 public class Profesor {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_profesor")
     private int id;
     @Column(length = 50)
     @Size(max = 50)
@@ -32,11 +33,11 @@ public class Profesor {
     )
     private Set<Unidad_aprendizaje> unidades = new HashSet<>();
 
-    public int getID(){
+    public int getId(){
         return id;
     }
 
-    public void setID(int id){
+    public void setId(int id){
         this.id=id;
     }
 

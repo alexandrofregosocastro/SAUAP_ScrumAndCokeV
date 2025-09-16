@@ -20,6 +20,7 @@ public class ConsultaGeneralUI implements Serializable {
     public void init() {
         CGH = new ConsultaGeneralHelper();
         lista_profesores = CGH.obtenerRegistrosAsignaciones();
+        System.out.println("Profesores: " + lista_profesores.size());
     }
     public void mensajeError(){
         if (lista_profesores == null){

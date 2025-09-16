@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html">
-
 <h:head>
     <title>SAUAP</title>
     <meta charset="UTF-8"/>
@@ -112,6 +111,10 @@
             color: #68A88F;
         }
 
+        .barra_lateral li.active a:visited{
+            color: #68A88F;
+        }
+
         /*Elimina qie se vean como link los botones ya visitados*/
         .barra_lateral li a:visited {
             color: #827D7D;
@@ -119,7 +122,6 @@
 
         .barra_lateral li a:visited:hover{
             color: #68A88F;
-            background-color: #d7ece0;
         }
 
         /*Hace que el boton activo no sea afectado por el hover*/
@@ -130,50 +132,56 @@
             text-decoration: none;
         }
 
-        /* contenido principal de la derecha */
-        .main {
-            margin-left: 220px;
+        /*Modifica el contenido principal de la derecha*/
+        .contenido_princial{
+            flex: 1;
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
+            padding-top: 120px;
         }
-        /* afecta al contenedor que tiene las dos columnas  de profesor y clases*/
-        .cards {
-            display: flex;
-            gap: 60px;
-        }
-        /* afecta cada columna del contenedor */
-        .card-container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 15px;
-        }
-        /* afecta a la terjeta blanca como tal de profesor/clase */
-        .card {
-            background: #fff;
-            border-radius: 12px;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+
+        /*Modifica el fondo blanco*/
+        .tarjeta_blanca {
+            position: relative;
+            background-color: #fff;
             padding: 30px;
-            width: 250px;
+            border-radius: 15px;
+            box-shadow: 0px 2px 6px rgba(0,0,0,0.1);
+            width: 400px;
+        }
+
+        .tarjeta_blanca h1{
             text-align: center;
         }
-        /* afecta el texto de cada  terjeta blanca como tal de profesor/clase */
-        .card h1 {
-            font-size: 50px;
-            margin: 0;
-            color: #555;
+
+        /*modifica cada apartado del formulario*/
+        .formulario {
+            margin-bottom: 18px;
         }
-        /* afecta el texto de cada  terjeta blanca como tal de profesor/clase */
-        .card p {
-            margin: 10px 0 0 0;
-            font-size: 18px;
-            color: #777;
+
+
+        /*Modifica el texto arriba del rectuangulo blanco del cada elemento del formulario*/
+        .formulario label{
+            display: block;
+            margin-bottom: 6px;
+            font-size: 14px;
+            font-weight: bold;
         }
-        /* afecta a los botones debajo de las tarjetas blancas */
+        /*Modifica el recuadro blanco de cada elemento del formulario*/
+        .formulario input{
+            width: 94%;
+            padding: 8px 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-shadow: 2px 2px 0px #ccc;
+        }
+
+        /*Modifica el boton del formulario*/
         .btn {
-            display: inline-block;
+            display: block;
+            width: max-content;
+            margin: 0 auto;
             background-color: #1b7a3a;
             color: white;
             padding: 8px 14px;
@@ -182,15 +190,29 @@
             font-size: 14px;
             cursor: pointer;
         }
-        /* afecta a los botones debajo de las tarjetas blancas */
-        .btn:hover {
+
+        /*Modifica el boton del formulario cuando estas hover*/
+
+        .btn:hover{
             background-color: #145c2c;
         }
-
-
+        /* afecta a los botones rojo para cerrar la pestaña */
+        .close-btn {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            font-size: 20px;
+            color: #555;
+            text-decoration: none;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        /* afecta al hacer hover  al boton rojo para cerrar la pestaña */
+        .close-btn:hover {
+            color: #b30000;
+        }
     </style>
 </h:head>
-
 <h:body>
     <!-- Barra lateral -->
     <div class="barra_lateral">
@@ -200,33 +222,33 @@
             <h:graphicImage value="uabc_escudo.png" alt="Logo"/>
             <p>SAUAP</p>
         </div>
-        <!-- lista de los botones de la barra lateral -->
+        <!-- lllista de los botones de la barra lateral -->
         <ul>
             <!-- primer boton de la barra lateral -->
-            <li class="#{facesContext.viewRoot.viewId eq '/login.xhtml' ? 'active' : ''}">
-                <h:link outcome ="/login.xhmtl">
-                    <img src="home.png" alt="login"/>
+            <li class="#{facesContext.viewRoot.viewId eq '/inicio.xhtml' ? 'active' : ''}">
+                <h:link outcome ="/inicio.xhmtl">
+                    <img src="resources-20250903T164359Z-1-001/resources/home.png" alt="inicio"/>
                     <h:outputText value="Inicio"/>
                 </h:link>
             </li>
             <!-- segundo boton de la barra lateral -->
             <li class="#{faceContext.viewRoot.viewId eq '/profesores.xhtml' ? 'active' : ''}">
                 <h:link outcome="/profesores.xhtml">
-                    <img src="person.png" alt="Profesores"/>
+                    <img src="resources-20250903T164359Z-1-001/resources/person.png" alt="Profesores"/>
                     <h:outputText value="Profesores"/>
                 </h:link>
             </li>
             <!-- tercer boton de la barra lateral -->
             <li class="#{facesContext.viewRoot.viewId eq '/clases.xhtml' ? 'active' : ''}">
                 <h:link outcome="/clases.xhtml">
-                    <img src="book.png" alt="Clases"/>
+                    <img src="resources-20250903T164359Z-1-001/resources/book.png" alt="Clases"/>
                     <h:outputText value="Clases"/>
                 </h:link>
             </li>
             <!-- cuarto boton de la barra lateral -->
             <li class="#{facesContext.viewRoot.viewId eq '/asignaciones.xhtml' ? 'active' : ''}">
                 <h:link outcome="/asignaciones.xhtml">
-                    <img src="link.png" alt="Asignaciones"/>
+                    <img src="resources-20250903T164359Z-1-001/resources/link.png" alt="Asignaciones"/>
                     <h:outputText value="Asignaciones"/>
                 </h:link>
             </li>
@@ -234,24 +256,31 @@
     </div>
 
     <!-- Contenido principal a la derecha -->
-    <div class="main">
-        <div class="cards">
-            <div class="card-container">
-                <div class="card">
-                    <h1>0</h1>
-                    <p>Profesores</p>
-                </div>
-                <h:link outcome="/agregar_profesor.xhtml" styleClass="btn" value="+ Agregar un Profesor"/>
+    <main class="contenido_princial">
+        <div class="tarjeta_blanca">
+            <!-- Boton para cerrarlo -->
+            <a href="javascript:history.back()" class="close-btn">✖</a>
+            <h1>Agregar una Asignacion</h1>
+
+            <!-- primer componente del formulario -->
+            <div class="formulario">
+                <label>Nombre del Maestro</label>
+                <input type="text" placeholder="Nombre del Maestro"/>
+            </div>
+            <!-- segundo componente del formulario -->
+            <div class="formulario">
+                <label>ID del Maestro</label>
+                <input type="text" placeholder="ID del Maestro"/>
+            </div>
+            <!-- tercer componente del formulario -->
+            <div class="formulario">
+                <label>Clases a Asignar</label>
+                <input type="text" placeholder="Clases a Asignar"/>
             </div>
 
-            <div class="card-container">
-                <div class="card">
-                    <h1>0</h1>
-                    <p>Clases</p>
-                </div>
-                <h:link outcome="/agregar_clase.xhtml" styleClass="btn" value="+ Agregar una Clase"/>
-            </div>
+            <!-- Boton para regresar a donde estabamos y asignar -->
+            <a href="javascript:history.back()" class="btn">+ Asignar Clases</a>
         </div>
-    </div>
+    </main>
 </h:body>
 </html>

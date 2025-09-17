@@ -3,15 +3,15 @@
              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
              xsi:schemaLocation="https://jakarta.ee/xml/ns/persistence https://jakarta.ee/xml/ns/persistence/persistence_3_1.xsd"
              version="3.1">
-    <persistence-unit  name="entity_prueba1PU" transaction-type="RESOURCE_LOCAL">
-        <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+    <persistence-unit name="sauapPU" transaction-type="RESOURCE_LOCAL">
+    <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
         <class>mx.desarollo.entity.Profesor</class>
         <class>mx.desarollo.entity.Usuario</class>
         <class>mx.desarollo.entity.Unidad_aprendizaje</class>
         <properties>
             <property name="hibernate.connection.driver_class" value="com.mysql.cj.jdbc.Driver"/>
 
-            <property name="hibernate.connection.url" value="jdbc:mysql://localhost:3306/scrum&amp;coke_db?useSSL=false&amp;serverTimezone=UTC"/>
+            <property name="jakarta.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/desarollo?useSSL=false&amp;serverTimezone=UTC"/>
             <property name="hibernate.connection.username" value="root"/>
             <property name="hibernate.connection.password" value="MangosYcocos"/>
             <property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect"/>

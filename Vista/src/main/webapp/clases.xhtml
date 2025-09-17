@@ -5,7 +5,7 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core">
 
 <h:head>
-    <title>Profesores</title>
+    <title>Clases - SAUAP</title>
     <meta charset="UTF-8"/>
     <style>
         /* ttodo el documento */
@@ -24,7 +24,7 @@
             background-color: #c1ded3;
         }
 
-        /*Logo verde dee SAUAP*/
+        /*Logo verde de SAUAP*/
         .logo {
             background-color: #1b7a3a;
             color: white;
@@ -114,6 +114,10 @@
             color: #68A88F;
         }
 
+        .barra_lateral li.active a:visited{
+            color: #68A88F;
+        }
+
         /*Elimina qie se vean como link los botones ya visitados*/
         .barra_lateral li a:visited {
             color: #827D7D;
@@ -121,7 +125,6 @@
 
         .barra_lateral li a:visited:hover{
             color: #68A88F;
-            background-color: #d7ece0;
         }
 
         /*Hace que el boton activo no sea afectado por el hover*/
@@ -189,7 +192,7 @@
             margin-bottom: 10px;
         }
 
-        /* ====== “Skin” minimalista para la p:dataTable ======
+        /* ====== "Skin" minimalista para la p:dataTable ======
            (aplicado SOLO a esta tabla via styleClass="custom-table") */
         .custom-table .ui-datatable,
         .custom-table .ui-widget-content,
@@ -288,8 +291,6 @@
             border: 1px solid #007bff !important;
         }
 
-
-
     </style>
 </h:head>
 
@@ -337,46 +338,120 @@
 
 
     <div class="content">
+        <f:event type="preRenderView" listener="#{ConsultaGeneralUI.init}"/>
         <div class="card">
             <div class="card-header">
-                <h1 class="card-title">Profesores</h1>
-                <h:link outcome="/agregar_profesor.xhtml" styleClass="btn" value="+ Agregar un Profesor"/>
+                <h1 class="card-title">Unidades de Aprendizaje</h1>
+                <h:link outcome="/agregar_clase.xhtml" styleClass="btn" value="+ Agregar Unidad de Aprendizaje"/>
             </div>
 
-            <!-- Buscador global (NO está enlazado al bean) -->
+            <!-- Buscador global -->
             <div class="search-container">
                 <p:inputText id="globalFilter"
                              placeholder="Buscar"
                              styleClass="search-input"
-                             onkeyup="PF('profesoresTable').filter()"/>
+                             onkeyup="PF('clasesTable').filter()"/>
             </div>
 
-            <!-- Tabla -->
-            <p:dataTable id="tablaProfesores"
-                         value="#{ConsultaGeneralUI.lista_profesores}"
-                         var="prof"
+            <!-- Mensaje de debug -->
+            <h:outputText value="Total de unidades: #{ConsultaGeneralUI.lista_unidades != null ? ConsultaGeneralUI.lista_unidades.size() : 0}" 
+                          style="font-size: 12px; color: #666; margin-bottom: 10px; display: block;"/>
+            
+            <!-- Tabla de Unidades de Aprendizaje -->
+            <p:dataTable id="tablaClases"
+                         value="#{ConsultaGeneralUI.lista_unidades}"
+                         var="unidad"
                          scrollable="true"
                          scrollHeight="400"
                          styleClass="custom-table"
-                         paginator="false">
+                         paginator="false"
+                         widgetVar="clasesTable"
+                         emptyMessage="No hay unidades de aprendizaje registradas">
 
-                <!-- Columnas SIN filtros -->
+                <!-- Columnas -->
                 <p:column headerText="ID">
-                    <h:outputText value="#{prof.id}" />
+                    <h:outputText value="#{unidad.id_uniapr}" />
                 </p:column>
 
                 <p:column headerText="Nombre">
-                    <h:outputText value="#{prof.nombre}" />
+                    <h:outputText value="#{unidad.nombre}" />
                 </p:column>
 
-                <p:column headerText="Apellidos">
-                    <h:outputText value="#{prof.apellido_paterno}" />
+                <p:column headerText="Horas Clase">
+                    <h:outputText value="#{unidad.horas_clase}" />
                 </p:column>
 
-                <p:column headerText="RFC">
-                    <h:outputText value="#{prof.RFC}" />
+                <p:column headerText="Horas Taller">
+                    <h:outputText value="#{unidad.horas_taller}" />
+                </p:column>
+
+                <p:column headerText="Horas Lab">
+                    <h:outputText value="#{unidad.horas_lab}" />
+                </p:column>
+
+                <p:column headerText="Horario">
+                    <h:outputText value="#{unidad.horarioCompleto}" />
+                </p:column>
+
+                <p:column headerText="Acciones" style="width:220px; text-align:right;">
+                    <p:commandButton value="Editar" styleClass="btn" process="@this" update=":dlgEditar" icon="pi pi-pencil"
+                                     actionListener="#{ConsultaGeneralUI.abrirMod(unidad)}" oncomplete="PF('dlgEditar').show()"/>
+                    <p:spacer width="8"/>
+                    <p:commandButton value="Eliminar" styleClass="btn" style="background:#e67c73" process="@this"
+                                     actionListener="#{ConsultaGeneralUI.prepararEliminar(unidad)}" oncomplete="PF('dlgEliminar').show()"/>
                 </p:column>
             </p:dataTable>
+            <p:dialog id="dlgEditar" header="Editar Unidad" widgetVar="dlgEditar" modal="true" closable="true" resizable="false">
+                <h:form id="formEditar">
+                    <h:panelGrid columns="2" columnClasses="label, value" cellpadding="5">
+                        <h:outputLabel for="nombre" value="Nombre"/>
+                        <p:inputText id="nombre" value="#{ConsultaGeneralUI.editUA.nombre}" required="true"/>
+
+                        <h:outputLabel for="hclase" value="Horas Clase"/>
+                        <p:inputText id="hclase" value="#{ConsultaGeneralUI.editUA.horas_clase}">
+                            <f:convertNumber integerOnly="true"/>
+                        </p:inputText>
+
+                        <h:outputLabel for="htaller" value="Horas Taller"/>
+                        <p:inputText id="htaller" value="#{ConsultaGeneralUI.editUA.horas_taller}">
+                            <f:convertNumber integerOnly="true"/>
+                        </p:inputText>
+
+                        <h:outputLabel for="hlab" value="Horas Lab"/>
+                        <p:inputText id="hlab" value="#{ConsultaGeneralUI.editUA.horas_lab}">
+                            <f:convertNumber integerOnly="true"/>
+                        </p:inputText>
+
+                        <h:outputLabel for="hini" value="Hora Inicio"/>
+                        <p:inputText id="hini" value="#{ConsultaGeneralUI.editUA.hora_inicio}" placeholder="HH:mm">
+                            <f:converter converterId="localTimeConverter"/>
+                        </p:inputText>
+
+                        <h:outputLabel for="hfin" value="Hora Fin"/>
+                        <p:inputText id="hfin" value="#{ConsultaGeneralUI.editUA.hora_fin}" placeholder="HH:mm">
+                            <f:converter converterId="localTimeConverter"/>
+                        </p:inputText>
+                    </h:panelGrid>
+
+                    <p:separator/>
+                    <p:commandButton value="Guardar" styleClass="btn" actionListener="#{ConsultaGeneralUI.modificarUA}"
+                                     update=":msgs :tablaClases" oncomplete="if(!args.validationFailed){PF('dlgEditar').hide()}"/>
+                    <p:spacer width="8"/>
+                    <p:commandButton value="Cancelar" type="button" onclick="PF('dlgEditar').hide()"/>
+                </h:form>
+            </p:dialog>
+
+            <!-- Dialogo Confirmar Eliminación -->
+            <p:dialog id="dlgEliminar" header="Confirmar Eliminación" widgetVar="dlgEliminar" modal="true" closable="true" resizable="false">
+                <h:form id="formEliminar">
+                    <h:outputText value="Seguro que quieres eliminar &quot;#{ConsultaGeneralUI.unidadSeleccionada != null ? ConsultaGeneralUI.unidadSeleccionada.nombre : ''}&quot;?"/>
+                    <p:separator/>
+                    <p:commandButton value="Confirmar" styleClass="btn" actionListener="#{ConsultaGeneralUI.eliminarUA}"
+                                     update=":msgs :tablaClases" oncomplete="PF('dlgEliminar').hide()"/>
+                    <p:spacer width="8"/>
+                    <p:commandButton value="Cancelar" type="button" onclick="PF('dlgEliminar').hide()"/>
+                </h:form>
+            </p:dialog>
         </div>
     </div>
 

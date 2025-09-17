@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html">
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
 <h:head>
     <title>SAUAP</title>
     <meta charset="UTF-8"/>
@@ -210,30 +212,30 @@
         <!-- lista de los botones de la barra lateral -->
         <ul>
             <!-- primer componente del Boton de inicio -->
-            <li class="#{facesContext.viewRoot.viewId eq '/login.xhtml' ? 'active' : ''}">
-                <h:link outcome ="/login.xhmtl">
-                    <img src="home.png" alt="login"/>
+            <li class="#{facesContext.viewRoot.viewId eq '/inicio.xhtml' ? 'active' : ''}">
+                <h:link outcome="/inicio.xhtml">
+                    <img src="resources-20250903T164359Z-1-001/resources/home.png" alt="inicio"/>
                     <h:outputText value="Inicio"/>
                 </h:link>
             </li>
             <!-- segundo componente del Boton de inicio -->
-            <li class="#{faceContext.viewRoot.viewId eq '/profesores.xhtml' ? 'active' : ''}">
+            <li class="#{facesContext.viewRoot.viewId eq '/profesores.xhtml' ? 'active' : ''}">
                 <h:link outcome="/profesores.xhtml">
-                    <img src="person.png" alt="Profesores"/>
+                    <img src="resources-20250903T164359Z-1-001/resources/person.png" alt="Profesores"/>
                     <h:outputText value="Profesores"/>
                 </h:link>
             </li>
             <!-- tercer componente del Boton de inicio -->
             <li class="#{facesContext.viewRoot.viewId eq '/clases.xhtml' ? 'active' : ''}">
                 <h:link outcome="/clases.xhtml">
-                    <img src="book.png" alt="Clases"/>
+                    <img src="resources-20250903T164359Z-1-001/resources/book.png" alt="Clases"/>
                     <h:outputText value="Clases"/>
                 </h:link>
             </li>
             <!-- cuarto componente del Boton de inicio -->
             <li class="#{facesContext.viewRoot.viewId eq '/asignaciones.xhtml' ? 'active' : ''}">
                 <h:link outcome="/asignaciones.xhtml">
-                    <img src="link.png" alt="Asignaciones"/>
+                    <img src="resources-20250903T164359Z-1-001/resources/link.png" alt="Asignaciones"/>
                     <h:outputText value="Asignaciones"/>
                 </h:link>
             </li>
@@ -245,30 +247,75 @@
         <div class="tarjeta_blanca">
             <!-- Boton para cerrarlo -->
             <a href="javascript:history.back()" class="close-btn">✖</a>
-            <h1>Registro de un profesor</h1>
+            <h1>Registro de Unidad de Aprendizaje</h1>
 
-            <!-- primer componente del formulario -->
-            <div class="formulario">
-                <label>Nombre</label>
-                <input type="text" placeholder="Nombre"/>
-            </div>
-            <!-- segundo componente del formulario -->
-            <div class="formulario">
-                <label>Apellido Paterno</label>
-                <input type="text" placeholder="Appellido Paterno"/>
-            </div>
-            <!-- tercer componente del formulario -->
-            <div class="formulario">
-                <label>Apellido Materno</label>
-                <input type="text" placeholder="Appellido Materno"/>
-            </div>
-            <!-- tercer componente del formulario -->
-            <div class="formulario">
-                <label>RFC</label>
-                <input type="text" placeholder="RFC"/>
-            </div>
-            <!-- Boton para regresar a donde estabamos y agregar el objeto -->
-            <a href="javascript:history.back()" class="btn">+ Agregar Profesor</a>
+            <h:form>
+                <p:messages id="messages" showDetail="true" closable="true"/>
+                
+                <!-- primer componente del formulario -->
+                <div class="formulario">
+                    <label>Nombre de la Unidad</label>
+                    <h:inputText value="#{RegistroUA_UI.UA.nombre}" 
+                                 placeholder="Nombre de la Unidad de Aprendizaje" 
+                                 required="true" 
+                                 requiredMessage="El nombre es obligatorio"/>
+                </div>
+                <!-- segundo componente del formulario -->
+                <div class="formulario">
+                    <label>Horas de Clase</label>
+                    <h:inputText value="#{RegistroUA_UI.UA.horas_clase}" 
+                                 placeholder="Horas de Clase" 
+                                 required="true" 
+                                 requiredMessage="Las horas de clase son obligatorias">
+                        <f:convertNumber integerOnly="true"/>
+                    </h:inputText>
+                </div>
+                <!-- tercer componente del formulario -->
+                <div class="formulario">
+                    <label>Horas de Taller</label>
+                    <h:inputText value="#{RegistroUA_UI.UA.horas_taller}" 
+                                 placeholder="Horas de Taller" 
+                                 required="true" 
+                                 requiredMessage="Las horas de taller son obligatorias">
+                        <f:convertNumber integerOnly="true"/>
+                    </h:inputText>
+                </div>
+                <!-- cuarto componente del formulario -->
+                <div class="formulario">
+                    <label>Horas de Laboratorio</label>
+                    <h:inputText value="#{RegistroUA_UI.UA.horas_lab}" 
+                                 placeholder="Horas de Laboratorio" 
+                                 required="true" 
+                                 requiredMessage="Las horas de laboratorio son obligatorias">
+                        <f:convertNumber integerOnly="true"/>
+                    </h:inputText>
+                </div>
+                <!-- quinto componente del formulario -->
+                <div class="formulario">
+                    <label>Hora de Inicio</label>
+                    <h:inputText value="#{RegistroUA_UI.UA.hora_inicio}" 
+                                 placeholder="HH:MM (Ej: 08:00)" 
+                                 required="true" 
+                                 requiredMessage="La hora de inicio es obligatoria">
+                        <f:converter converterId="localTimeConverter"/>
+                    </h:inputText>
+                </div>
+                <!-- sexto componente del formulario -->
+                <div class="formulario">
+                    <label>Hora de Fin</label>
+                    <h:inputText value="#{RegistroUA_UI.UA.hora_fin}" 
+                                 placeholder="HH:MM (Ej: 10:00)" 
+                                 required="true" 
+                                 requiredMessage="La hora de fin es obligatoria">
+                        <f:converter converterId="localTimeConverter"/>
+                    </h:inputText>
+                </div>
+                <!-- Boton para agregar la unidad de aprendizaje -->
+                <h:commandButton value="+ Agregar Unidad de Aprendizaje" 
+                                 action="#{RegistroUA_UI.RegistrarUA()}" 
+                                 styleClass="btn"
+                                 update="messages"/>
+            </h:form>
         </div>
     </main>
 </h:body>

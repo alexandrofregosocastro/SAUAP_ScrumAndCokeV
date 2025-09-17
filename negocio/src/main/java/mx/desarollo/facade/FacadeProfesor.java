@@ -3,6 +3,8 @@ package mx.desarollo.facade;
 import mx.desarollo.delegate.DelegateProfesor;
 import mx.desarollo.entity.Profesor;
 
+import java.util.List;
+
 public class FacadeProfesor {
 
     /*
@@ -18,6 +20,14 @@ public class FacadeProfesor {
 
     public boolean registrarProfesor(Profesor profesor){
         return delegateProfesor.registrarProfesor(profesor);
+    }
+
+    public boolean asignarUA(int idProfesor, int idUA){
+        return delegateProfesor.asignarUA(idProfesor, idUA);
+    }
+
+    public List<Profesor> obtenerAsignaciones(){
+        return delegateProfesor.obtenerAsignaciones();
     }
 
 }

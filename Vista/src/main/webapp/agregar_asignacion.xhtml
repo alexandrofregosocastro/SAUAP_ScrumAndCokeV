@@ -224,7 +224,7 @@
             <h:graphicImage value="uabc_escudo.png" alt="Logo"/>
             <p>SAUAP</p>
         </div>
-        <!-- lista de los botones de la barra lateral -->
+        <!-- lllista de los botones de la barra lateral -->
         <ul>
             <!-- primer boton de la barra lateral -->
             <li class="#{facesContext.viewRoot.viewId eq '/inicio.xhtml' ? 'active' : ''}">
@@ -262,47 +262,35 @@
         <div class="tarjeta_blanca">
             <!-- Boton para cerrarlo -->
             <a href="javascript:history.back()" class="close-btn">✖</a>
-            <h1>Registro de un profesor</h1>
+            <h1>Agregar una Asignacion</h1>
 
             <h:form>
                 <p:messages id="messages" showDetail="true" closable="true"/>
                 
                 <!-- primer componente del formulario -->
                 <div class="formulario">
-                    <label>Nombre</label>
-                    <h:inputText value="#{RegistroProfesorUI.profesor.nombre}" 
-                                 placeholder="Nombre" 
+                    <label>ID del Profesor</label>
+                    <h:inputText value="#{AsignacionUI.idProfesor}" 
+                                 placeholder="ID del Profesor" 
                                  required="true" 
-                                 requiredMessage="El nombre es obligatorio"/>
+                                 requiredMessage="El ID del profesor es obligatorio">
+                        <f:convertNumber integerOnly="true"/>
+                    </h:inputText>
                 </div>
                 <!-- segundo componente del formulario -->
                 <div class="formulario">
-                    <label>Apellido Paterno</label>
-                    <h:inputText value="#{RegistroProfesorUI.profesor.apellido_paterno}" 
-                                 placeholder="Apellido Paterno" 
+                    <label>ID de la Unidad de Aprendizaje</label>
+                    <h:inputText value="#{AsignacionUI.idUA}" 
+                                 placeholder="ID de la Unidad de Aprendizaje" 
                                  required="true" 
-                                 requiredMessage="El apellido paterno es obligatorio"/>
+                                 requiredMessage="El ID de la unidad de aprendizaje es obligatorio">
+                        <f:convertNumber integerOnly="true"/>
+                    </h:inputText>
                 </div>
-                <!-- tercer componente del formulario -->
-                <div class="formulario">
-                    <label>Apellido Materno</label>
-                    <h:inputText value="#{RegistroProfesorUI.profesor.apellido_materno}" 
-                                 placeholder="Apellido Materno" 
-                                 required="true" 
-                                 requiredMessage="El apellido materno es obligatorio"/>
-                </div>
-                <!-- cuarto componente del formulario -->
-                <div class="formulario">
-                    <label>RFC</label>
-                    <h:inputText value="#{RegistroProfesorUI.profesor.RFC}" 
-                                 placeholder="RFC (Ej: ABCD123456789)" 
-                                 required="true" 
-                                 requiredMessage="El RFC es obligatorio"
-                                 maxlength="13"/>
-                </div>
-                <!-- Boton para agregar el profesor -->
-                <h:commandButton value="+ Agregar Profesor" 
-                                 action="#{RegistroProfesorUI.RegistrarProfesor()}" 
+
+                <!-- Boton para asignar -->
+                <h:commandButton value="+ Asignar Clases" 
+                                 action="#{AsignacionUI.Asignar()}" 
                                  styleClass="btn"
                                  update="messages"/>
             </h:form>

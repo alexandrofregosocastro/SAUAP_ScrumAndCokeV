@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package helper;
 
 
@@ -16,10 +11,16 @@ public class RegistroProfesorHelper implements Serializable {
 
     public boolean registrarProfesor(Profesor profesor){
         try{
-            ServiceFacadeLocator.getInstanceFacadeProfesor().registrarProfesor(profesor);
-            return true;
+            System.out.println("RegistroProfesorHelper: Iniciando registro de profesor");
+            System.out.println("Datos del profesor: " + profesor.getNombre() + " " + profesor.getApellido_paterno() + " RFC: " + profesor.getRFC());
+            
+            boolean resultado = ServiceFacadeLocator.getInstanceFacadeProfesor().registrarProfesor(profesor);
+            
+            System.out.println("RegistroProfesorHelper: Resultado del registro: " + resultado);
+            return resultado;
         }catch (Exception ex){
-            System.out.println("Error" + ex.getMessage());
+            System.out.println("Error en RegistroProfesorHelper: " + ex.getMessage());
+            ex.printStackTrace();
             return false;
         }
     }

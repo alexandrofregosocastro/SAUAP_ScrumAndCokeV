@@ -20,40 +20,6 @@ public abstract class AbstractDAO<T> {
 
     protected abstract EntityManager getEntityManager();
 
-      /* ========================
-       Operaciones CRUD básicas
-       ======================== */
-
-    // Save or persist a new entity
-    public void save(T entity) {
-        executeInsideTransaction(em -> em.persist(entity));
-    }
-
-    // Update an existing entity
-    public void update(T entity) {
-        executeInsideTransaction(em -> em.merge(entity));
-    }
-
-    // Delete an entity
-    public void delete(T entity) {
-        executeInsideTransaction(em -> em.remove(em.contains(entity) ? entity : em.merge(entity)));
-    }
-
-    // Find by ID
-    public Optional<T> find(Object id) {
-        return Optional.ofNullable(getEntityManager().find(entityClass, id));
-    }
-
-    public Optional<T> findFresh(Object id) {
-        return Optional.ofNullable(execute(em -> {
-            T entity = em.find(entityClass, id);
-            if (entity != null) {
-                em.refresh(entity);
-            }
-            return entity;
-        }));
-    }
-
     // Find all
     public List<T> findAll() {
         return execute(em ->

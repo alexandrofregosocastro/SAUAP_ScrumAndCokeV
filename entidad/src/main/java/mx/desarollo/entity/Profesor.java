@@ -6,36 +6,42 @@ import java.util.Set;
 import java.util.HashSet;
 
 @Entity
-@Table (name = "profesor")
+@Table(name = "profesor")
 public class Profesor {
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_profesor")
     private int id;
+
     @Column(length = 50)
     @Size(max = 50)
     private String nombre;
+
     @Column(length = 50)
     @Size(max = 50)
     private String apellido_paterno;
+
     @Column(length = 50)
     @Size(max = 50)
     private String apellido_materno;
+
     @Column(length = 12, unique = true, nullable = false)
     @Size(max = 12)
     private String RFC;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "imparte",
             joinColumns = @JoinColumn(name = "id_profesor"),
-            inverseJoinColumns = @JoinColumn (name = "id_uniapr")
+            inverseJoinColumns = @JoinColumn(name = "id_uniapr")
     )
     private Set<Unidad_aprendizaje> unidades = new HashSet<>();
 
-    public int getID(){
+    public int getId(){
         return id;
     }
 
-    public void setID(int id){
+    public void setId(int id){
         this.id=id;
     }
 

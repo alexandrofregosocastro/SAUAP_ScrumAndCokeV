@@ -37,7 +37,7 @@ public class LoginBeanUI implements Serializable {
         Usuario user = lh.login(usuario.getNombre_usuario(), usuario.getPassword());
         if(user != null) {
             usuario = user;
-            String URL = "/index.xhtml"; //Aqui es la pagina a donde se redigira si el login funciona
+            String URL = "/inicio.xhtml"; //Aqui es la pagina a donde se redigira si el login funciona
             FacesContext.getCurrentInstance().getExternalContext().redirect(FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath() + URL);
             /*
             Cuando el usuario presiona el boton de registrar, JSF crea un objeto con las siguientes cosas:
